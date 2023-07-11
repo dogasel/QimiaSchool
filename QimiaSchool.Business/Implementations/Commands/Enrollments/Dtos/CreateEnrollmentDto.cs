@@ -8,7 +8,5 @@ public class CreateEnrollmentDto
     public int StudentID { get; set; }
     public Grade? Grade { get; set; }
 
-    public Course? Course { get; set; }
-    public Student? Student { get; set; }
 
 }

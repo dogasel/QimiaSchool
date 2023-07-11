@@ -7,9 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="12.0.1" />
-		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-		<PackageReference Include="MediatR" Version="12.0.1" />
+		
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -18,8 +16,7 @@
 	<ItemGroup>
 		
 		<ProjectReference Include="..\QimiaSchool.Business\QimiaSchool.Business.csproj" />
-		
-		<ProjectReference Include="..\QimiaSchool.DataAccess\QimiaSchool.DataAccess.csproj" />
+
 	</ItemGroup>
 
 </Project>

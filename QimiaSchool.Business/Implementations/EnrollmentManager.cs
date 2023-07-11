@@ -25,7 +25,7 @@ public class EnrollmentManager : IEnrollmentManager
 
     public Task<Enrollment> GetEnrollmentByIdAsync(int enrollmentId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return _enrollmentRepository.GetByIdAsync(enrollmentId, cancellationToken);
     }
 
     public Task UpdateEnrollmentAsync(int enrollmentId, Enrollment enrollment, CancellationToken cancellationToken)

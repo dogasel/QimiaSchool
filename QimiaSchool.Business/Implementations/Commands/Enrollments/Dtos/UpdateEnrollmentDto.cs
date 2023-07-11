@@ -14,7 +14,6 @@ namespace QimiaSchool.Business.Implementations.Commands.Enrollments.Dtos
         public int StudentID { get; set; }
         public Grade? Grade { get; set; }
 
-        public Course? Course { get; set; }
-        public Student? Student { get; set; }
+        
     }
 }

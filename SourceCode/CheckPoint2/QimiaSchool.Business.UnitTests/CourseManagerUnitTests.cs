@@ -2,19 +2,20 @@
 using QimiaSchool.Business.Implementations;
 using QimiaSchool.DataAccess.Entities;
 using QimiaSchool.DataAccess.Repositories.Abstractions;
-
+using Serilog;
 namespace QimiaSchool.Business.UnitTests;
 
 [TestFixture]
 internal class CourseManagerUnitTests
 {
     private readonly Mock<ICourseRepository> _mockCourseRepository;
+    private readonly ILogger _CourseLogger;
     private readonly CourseManager _CourseManager;
 
     public CourseManagerUnitTests()
     {
         _mockCourseRepository = new Mock<ICourseRepository>();
-        _CourseManager = new CourseManager(_mockCourseRepository.Object);
+        _CourseManager = new CourseManager(_mockCourseRepository.Object, _CourseLogger);
     }
 
     [Test]

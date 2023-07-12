@@ -2,7 +2,7 @@
 using QimiaSchool.Business.Implementations;
 using QimiaSchool.DataAccess.Entities;
 using QimiaSchool.DataAccess.Repositories.Abstractions;
-
+using Serilog;
 namespace QimiaSchool.Business.UnitTests;
 
 [TestFixture]
@@ -10,11 +10,11 @@ internal class StudentManagerUnitTests
 {
     private readonly Mock<IStudentRepository> _mockStudentRepository;
     private readonly StudentManager _studentManager;
-
+    private readonly ILogger _StudentLogger;
     public StudentManagerUnitTests()
     {
         _mockStudentRepository = new Mock<IStudentRepository>();
-        _studentManager = new StudentManager(_mockStudentRepository.Object);
+        _studentManager = new StudentManager(_mockStudentRepository.Object, _StudentLogger);
     }
 
     [Test]

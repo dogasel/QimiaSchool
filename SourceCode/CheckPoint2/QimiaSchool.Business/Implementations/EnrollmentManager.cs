@@ -32,23 +32,34 @@ public class EnrollmentManager : IEnrollmentManager
 
     public Task<Enrollment> GetEnrollmentByIdAsync(int enrollmentId, CancellationToken cancellationToken)
     {
+        _enrollmentLogger.Information(
+           "Get enrollment by Id request is accepted. Id :{@enrollmentId}",
+           enrollmentId);
         return _enrollmentRepository.GetByIdAsync(enrollmentId, cancellationToken);
     }
 
     public Task UpdateEnrollmentAsync(int enrollmentId, Enrollment enrollment, CancellationToken cancellationToken)
     {
+        _enrollmentLogger.Information(
+           "Update enrollmen request is accepted. Enrollment:{@enrollment}",
+           enrollmentId);
         enrollment.ID = enrollmentId;
 
         return _enrollmentRepository.UpdateAsync(enrollment, cancellationToken);
     }
     public Task DeleteEnrollmentAsync(int enrollmentId, CancellationToken cancellationToken)
     {
- 
+        _enrollmentLogger.Information(
+                    "Delete enrollment request is accepted. Enrollment:{@enrollment}",
+                    enrollmentId);
         return _enrollmentRepository.DeleteAsync(enrollmentId, cancellationToken);
     }
 
     public async Task<List<Enrollment>> GetEnrollmentsAsync(CancellationToken cancellationToken)
     {
+        _enrollmentLogger.Information(
+           "Get enrollments is accepted. Enrollment:{@enrollment}"
+           );
         return await _enrollmentRepository.GetAllAsync(cancellationToken);
     }
 }

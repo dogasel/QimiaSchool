@@ -2,7 +2,7 @@
 using QimiaSchool.Business.Implementations;
 using QimiaSchool.DataAccess.Entities;
 using QimiaSchool.DataAccess.Repositories.Abstractions;
-
+using Serilog;
 namespace QimiaSchool.Business.UnitTests;
 
 [TestFixture]
@@ -10,11 +10,12 @@ internal class EnrollmentManagerUnitTests
 {
     private readonly Mock<IEnrollmentRepository> _mockEnrollmentRepository;
     private readonly EnrollmentManager _EnrollmentManager;
+    private readonly ILogger _EnrollmentLogger;
 
     public EnrollmentManagerUnitTests()
     {
         _mockEnrollmentRepository = new Mock<IEnrollmentRepository>();
-        _EnrollmentManager = new EnrollmentManager(_mockEnrollmentRepository.Object);
+        _EnrollmentManager = new EnrollmentManager(_mockEnrollmentRepository.Object,_EnrollmentLogger);
     }
 
     [Test]

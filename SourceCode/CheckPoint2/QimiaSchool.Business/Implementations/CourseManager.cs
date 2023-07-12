@@ -35,16 +35,27 @@ public class CourseManager : ICourseManager
         int courseId,
         CancellationToken cancellationToken)
     {
+        _courseLogger.Information(
+            "Get course by Id request is accepted. Id :{@courseId}",
+            courseId);
         return _courseRepository.GetByIdAsync(courseId, cancellationToken);
     }
     public Task DeleteCourseAsync(int courseId, CancellationToken cancellationToken)
     {
+
+        _courseLogger.Information(
+              "Delete course request is accepted. Course:{@course}",
+              courseId);
         return _courseRepository.DeleteAsync(courseId, cancellationToken);
     }
 
 
     public Task UpdateCourseAsync(int courseId, Course course, CancellationToken cancellationToken)
     {
+
+        _courseLogger.Information(
+            "Update course request is accepted. Course:{@course}",
+            course);
         course.ID = courseId;
 
         return _courseRepository.UpdateAsync(course, cancellationToken);
@@ -52,6 +63,9 @@ public class CourseManager : ICourseManager
 
     public async Task<List<Course>> GetCoursesAsync(CancellationToken cancellationToken)
     {
+        _courseLogger.Information(
+           "Get courses is accepted. Courses:{@course}"
+           );
         return await _courseRepository.GetAllAsync(cancellationToken);
     }
 }

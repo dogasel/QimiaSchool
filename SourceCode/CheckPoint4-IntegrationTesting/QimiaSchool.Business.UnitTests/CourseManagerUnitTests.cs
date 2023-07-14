@@ -1,22 +1,28 @@
 ﻿using Moq;
+using QimiaSchool.Business.Abstracts;
 using QimiaSchool.Business.Implementations;
 using QimiaSchool.DataAccess.Entities;
 using QimiaSchool.DataAccess.Repositories.Abstractions;
 using Serilog;
-namespace QimiaSchool.Business.UnitTests;
 
 [TestFixture]
 internal class CourseManagerUnitTests
 {
     private readonly Mock<ICourseRepository> _mockCourseRepository;
-    private readonly Mock<ILogger> _CourseLogger = null!;
-    private readonly CourseManager _CourseManager;
+    private readonly Mock<ILogger> _mockCourseLogger;
+    private readonly CourseManager _courseManager;
+    private readonly Mock<ICacheService> _mockCacheService;
 
     public CourseManagerUnitTests()
     {
-        _CourseLogger= new Mock<ILogger>();
         _mockCourseRepository = new Mock<ICourseRepository>();
-        _CourseManager = new CourseManager(_mockCourseRepository.Object, _CourseLogger.Object);
+        _mockCourseLogger = new Mock<ILogger>();
+        _mockCacheService = new Mock<ICacheService>();
+        _courseManager = new CourseManager(
+            _mockCourseRepository.Object,
+            _mockCourseLogger.Object,
+            _mockCacheService.Object
+        );
     }
 
     [Test]
@@ -31,7 +37,7 @@ internal class CourseManagerUnitTests
         };
 
         // Act
-        await _CourseManager.CreateCourseAsync(testCourse, default);
+        await _courseManager.CreateCourseAsync(testCourse, default);
 
         // Assert
         _mockCourseRepository
@@ -48,12 +54,12 @@ internal class CourseManagerUnitTests
         var testCourse = new Course
         {
             ID = 1,
-            Credits= 2,
-            Title= "Test"
+            Credits = 2,
+            Title = "Test"
         };
 
         // Act
-        await _CourseManager.CreateCourseAsync(testCourse, default);
+        await _courseManager.CreateCourseAsync(testCourse, default);
 
         // Assert
         _mockCourseRepository

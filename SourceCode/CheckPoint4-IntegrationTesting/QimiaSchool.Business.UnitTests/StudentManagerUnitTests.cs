@@ -1,4 +1,5 @@
 ﻿using Moq;
+using QimiaSchool.Business.Abstracts;
 using QimiaSchool.Business.Implementations;
 using QimiaSchool.DataAccess.Entities;
 using QimiaSchool.DataAccess.Repositories.Abstractions;
@@ -10,12 +11,19 @@ internal class StudentManagerUnitTests
 {
     private readonly Mock<IStudentRepository> _mockStudentRepository;
     private readonly StudentManager _studentManager;
-    private readonly Mock<ILogger> _StudentLogger = null!;
+    private readonly Mock<ICacheService> _mockCacheService;
+    private readonly Mock<ILogger> _mockStudentLogger;
+
     public StudentManagerUnitTests()
     {
-        _StudentLogger = new Mock<ILogger>();
         _mockStudentRepository = new Mock<IStudentRepository>();
-        _studentManager = new StudentManager(_mockStudentRepository.Object, _StudentLogger.Object);
+        _mockCacheService = new Mock<ICacheService>();
+        _mockStudentLogger = new Mock<ILogger>();
+        _studentManager = new StudentManager(
+            _mockStudentRepository.Object,
+            _mockStudentLogger.Object,
+            _mockCacheService.Object
+        );
     }
 
     [Test]

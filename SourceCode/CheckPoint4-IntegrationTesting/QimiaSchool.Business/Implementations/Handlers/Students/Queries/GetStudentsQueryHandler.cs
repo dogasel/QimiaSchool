@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
-using QimiaSchool.Business.Implementations.Queries.Student.Dtos;
+
 
 namespace QimiaSchool.Business.Implementations.Handlers.Students.Queries;
 public class GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, List<StudentDto>>

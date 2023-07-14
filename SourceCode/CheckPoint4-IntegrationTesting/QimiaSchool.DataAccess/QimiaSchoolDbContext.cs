@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QimiaSchool.DataAccess.Entities;
 
+
 namespace QimiaSchool.DataAccess;
 
 public class QimiaSchoolDbContext : DbContext

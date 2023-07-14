@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SourceCode/CheckPoint4-IntegrationTesting/QimiaSchool.IntegrationTests/GetCourseByIdTests.cs

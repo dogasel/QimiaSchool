@@ -5,15 +5,15 @@ using QimiaSchool.Business.Implementations.Commands.Students;
 using QimiaSchool.Business.Implementations.Commands.Students.Dtos;
 using QimiaSchool.Business.Implementations.Queries.Student;
 using QimiaSchool.Business.Implementations.Queries.Student.Dtos;
-using QimiaSchool.Business.Implementations.Queries.Student;
-using Microsoft.AspNetCore.Authorization;
+
 using Serilog;
 
 namespace QimiaSchool.Controllers;
 
 [ApiController]
-//[Authorize]
+[Authorize]
 [Route("[controller]")]
+
 public class StudentsController : Controller
 {
     private readonly IMediator _mediator;

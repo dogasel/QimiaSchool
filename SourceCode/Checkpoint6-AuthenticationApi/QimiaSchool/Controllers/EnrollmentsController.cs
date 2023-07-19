@@ -9,8 +9,9 @@ using Serilog;
 namespace QimiaSchool.Controllers;
 
 [ApiController]
-//[Authorize]
+[Authorize]
 [Route("[controller]")]
+
 public class EnrollmentsController : Controller
 {
     private readonly IMediator _mediator;

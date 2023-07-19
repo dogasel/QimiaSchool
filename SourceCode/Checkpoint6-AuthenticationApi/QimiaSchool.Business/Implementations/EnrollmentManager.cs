@@ -9,11 +9,12 @@ public class EnrollmentManager : IEnrollmentManager
 {
     private readonly IEnrollmentRepository _enrollmentRepository;
     private readonly Serilog.ILogger _enrollmentLogger;
-    public EnrollmentManager(IEnrollmentRepository enrollmentRepository, ILogger enrollmentLogger)
+    private readonly ICacheService _cacheService;
+    public EnrollmentManager(IEnrollmentRepository enrollmentRepository, ILogger enrollmentLogger, ICacheService cacheService)
     {
         _enrollmentRepository = enrollmentRepository;
         _enrollmentLogger = enrollmentLogger;
-
+        _cacheService = cacheService;
     }
 
     public Task CreateEnrollmentAsync(

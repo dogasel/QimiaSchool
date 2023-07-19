@@ -18,6 +18,9 @@ using QimiaSchool.DataAccess.MessageBroker.Implementations;
 using MassTransit;
 using QimiaSchool.Business.Implementations.Events.Courses;
 using QimiaSchool.DataAccess.MessageBroker.Abstractions;
+using QimiaSchool.Common;
+using System.Text;
+using QimiaSchool.Business.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +64,8 @@ builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 builder.Services.AddSingleton<Serilog.ILogger>(logger => Serilog.Log.Logger);
 builder.Services.AddBusinessLayer();
 
+builder.Services.Configure<Auth0Configuration>(builder.Configuration.GetSection("Auth0"));
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -68,13 +73,21 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+    var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Auth0:ClientSecret"]));
     options.Authority = $"{builder.Configuration["Auth0:Domain"]}";
     options.Audience = builder.Configuration["Auth0:Audience"];
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        NameClaimType = "name"
+        NameClaimType = "name",
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = key,
+        ValidIssuer = $"https://{builder.Configuration["Auth0:Domain"]}",
+        ValidAudience = builder.Configuration["Auth0:Audience"],
     };
 });
+
 
 
 Log.Logger = new LoggerConfiguration()
@@ -138,10 +151,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<TokenRefreshMiddleware>();
 
 app.MapControllers();
 
 app.Run();
+
 public partial class Program { }
 
